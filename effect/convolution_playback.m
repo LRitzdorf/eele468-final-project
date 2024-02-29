@@ -5,8 +5,14 @@
 %% Setup
 
 sampledir = "samples";
-impulsename = "h080_Outdoor_GrassyField.wav";
-inputname = "acoustic.wav";
+impulsename = uigetfile('*.wav', "Select an Impulse Response", sampledir);
+if impulsename == 0
+    error("File does not exist, or selection cancelled. Please try again.")
+end
+inputname = uigetfile('*.wav', "Select an Input Sample", sampledir);
+if inputname == 0
+    error("File does not exist, or selection cancelled. Please try again.")
+end
 
 %% Load impulse and input
 
