@@ -2,27 +2,30 @@
 % 02/25/2024
 % EELE 468
 
-%% Setup
-
 sampledir = "samples";
+
+%% Select and load impulse
+
 impulsename = uigetfile('*.wav', "Select an Impulse Response", sampledir);
 if impulsename == 0
     error("File does not exist, or selection cancelled. Please try again.")
 end
+impulse = audioread(fullfile(sampledir, impulsename));
+plot(impulse);
+
+%% Select and load input
+
 inputname = uigetfile('*.wav', "Select an Input Sample", sampledir);
 if inputname == 0
     error("File does not exist, or selection cancelled. Please try again.")
 end
-
-%% Load impulse and input
-
-impulse = audioread(fullfile(sampledir, impulsename));
-plot(impulse);
 [input, fs] = audioread(fullfile(sampledir, inputname));
 plot(input);
 
+
+%% Ensure both signals are in stereo
 % If either file has only one audio stream (i.e. mono audio), copy it to
-% create equivalent stereo channels
+% create two equivalent stereo channels
 impulse = stereoify(impulse);
 input = stereoify(input);
 
