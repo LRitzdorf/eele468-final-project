@@ -3,6 +3,7 @@
 % EELE 468
 
 sampledir = "samples";
+wetdry = 0.50;
 
 %% Select and load input
 
@@ -46,7 +47,9 @@ input = stereoify(input);
 result = zeros(size(input,1)+size(impulse,1)-1, 2);
 % Convolve each channel individually
 for channel = 1:2
-    result(:, channel) = conv(impulse(:, channel), input(:, channel));
+    result(:, channel) = ...
+        wetdry * conv(impulse(:, channel), input(:, channel)) ...
+        + (1-wetdry) * padarray(input(:, channel), size(impulse,1)-1, 0, "post");
 end
 
 %% Play and plot the result
