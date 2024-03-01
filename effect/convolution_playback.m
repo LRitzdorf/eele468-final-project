@@ -22,6 +22,16 @@ end
 [impulse, fs_imp] = audioread(fullfile(sampledir, impulsename));
 plot(impulse);
 
+%% Alternatively, record a live impulse response
+duration = 1;
+
+recObj = audiorecorder;
+disp("Recording...");
+recordblocking(recObj, duration);
+disp("Finished recording");
+impulse = getaudiodata(recObj);
+fs_imp = recObj.SampleRate;
+
 %% Ensure both signals have matching sample rates and are in stereo
 
 % Resample the impulse so it matches the input's sample rate
