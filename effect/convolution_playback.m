@@ -2,25 +2,25 @@
 % 02/25/2024
 % EELE 468
 
-sampledir = "samples";
-wetdry = 0.50;
+sampledir = "inputs";
+wetdry = 1.00;
 
 %% Select and load input
 
-inputname = uigetfile('*.wav', "Select an Input Sample", sampledir);
-if inputname == 0
+[file, path] = uigetfile('*.wav', "Select an Input Sample", sampledir);
+if file == 0
     error("File does not exist, or selection cancelled. Please try again.")
 end
-[input, fs] = audioread(fullfile(sampledir, inputname));
+[input, fs] = audioread(fullfile(path, file));
 plot(input);
 
 %% Select and load impulse
 
-impulsename = uigetfile('*.wav', "Select an Impulse Response", sampledir);
-if impulsename == 0
+[file, path] = uigetfile('*.wav', "Select an Impulse Response", sampledir);
+if file == 0
     error("File does not exist, or selection cancelled. Please try again.")
 end
-[impulse, fs_imp] = audioread(fullfile(sampledir, impulsename));
+[impulse, fs_imp] = audioread(fullfile(sampledir, file));
 plot(impulse);
 
 %% Alternatively, record a live impulse response
