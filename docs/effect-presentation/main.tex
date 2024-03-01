@@ -1,0 +1,87 @@
+% Preamble and Setup
+\documentclass[
+    aspectratio=169,
+    xcolor=svgnames,
+]{beamer}
+\graphicspath{{../../figures}}
+\hypersetup{
+    hidelinks,
+}
+\usepackage[
+    overridenote,
+    %hidenotes,
+]{pdfpc}
+\usepackage{minted}
+\setminted{
+    breaklines,
+    autogobble,
+    frame=lines,
+    fontsize=\small,
+}
+\usepackage{multimedia}
+\usepackage{multirow}
+
+% Theming
+\usetheme{Berlin}
+\usecolortheme{whale}
+\beamertemplatenavigationsymbolsempty
+\setbeamercovered{transparent}
+% Paragraph spacing (list environments are unaffected)
+\setlength{\parskip}{0.5\baselineskip}
+% To undo spacing before a list (may break pagination, but okay in Beamer):
+%\vspace{-\parskip}
+
+% Support skipping miniframes
+\makeatletter
+\let\beamer@writeslidentry@miniframeson=\beamer@writeslidentry
+\def\beamer@writeslidentry@miniframesoff{%
+  \expandafter\ifblank\expandafter{\beamer@framestartpage}{}{
+    % removed \addtocontents commands
+    \clearpage\beamer@notesactions%
+  }
+  \let\beamer@writeslidentry=\beamer@writeslidentry@miniframeson
+}
+\newcommand*{\skipminiframe}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframesoff}
+\makeatother
+% Show ToC at the beginning of each section
+\AtBeginSection{
+    \skipminiframe
+    \begin{frame}{Table of Contents}
+        \transuncover[direction=180, duration=0.25]
+        \setlength{\parskip}{0pt}
+        \tableofcontents[currentsection, hideothersubsections]
+    \end{frame}
+}
+
+% Overlay-aware commands
+\renewcommand<>{\sout}[1]{
+  % Strikeout (strikethrough, crossout)
+  \alt#2{\beameroriginal\sout{#1}}{#1}
+}
+
+
+% Presentation Content
+\title{Sound Effect: Convolution Playback}
+\subtitle{for EELE 468}
+\author{Lucas Ritzdorf}
+\institute{Montana State Unviersity}
+\date{March 1, 2024}
+\titlegraphic{\includegraphics{msu-logo}}
+
+\begin{document}
+
+\maketitle
+
+% Sections:
+%   1. Sound Effect Overview
+%   2. The algorithm (i.e. the math and/or signal flow graph)
+%   3. Your Matlab code that implements the sound effect.
+%   4. The Control Parameters you will be using
+%   5. Sound Effect examples (before and after) using various control parameters that modify the audio with distinct audio differences.
+\input{overview.tex}
+\input{algorithm.tex}
+\input{matlab.tex}
+\input{parameters.tex}
+\input{examples.tex}
+
+\end{document}
