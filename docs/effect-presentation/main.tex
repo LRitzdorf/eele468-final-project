@@ -35,8 +35,6 @@
 \setbeamercovered{transparent}
 % Paragraph spacing (list environments are unaffected)
 \setlength{\parskip}{0.5\baselineskip}
-% To undo spacing before a list (may break pagination, but okay in Beamer):
-%\vspace{-\parskip}
 
 % Support skipping miniframes
 \makeatletter
@@ -67,12 +65,6 @@
     \end{frame}
 }
 
-% Overlay-aware commands
-\renewcommand<>{\sout}[1]{
-  % Strikeout (strikethrough, crossout)
-  \alt#2{\beameroriginal\sout{#1}}{#1}
-}
-
 
 % Presentation Content
 \title{Sound Effect: Convolution Playback}
@@ -98,7 +90,6 @@
 \input{parameters.tex}
 \input{examples.tex}
 
-\AtBeginSection{}
 \section{References}
 \begin{frame}[allowframebreaks]{References}
     \nocite{*}
