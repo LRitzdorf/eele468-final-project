@@ -1,0 +1,37 @@
+\section{MATLAB Implementation}
+
+
+\begin{frame}[fragile]{Loading Audio from Files}
+
+    \texttt{uigetfile()} and \texttt{audioread()} allow us to import an audio file chosen by the user.
+
+    \inputminted[firstline=8,lastline=15]{matlab}{../../effect/convolution_playback.m}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Recording Audio in Real Time}
+
+    MATLAB also provides an \texttt{audiorecorder} object, which allows for real-time recording.
+
+    \inputminted[firstline=26,lastline=34]{matlab}{../../effect/convolution_playback.m}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Signal Preprocessing}
+
+    We ensure that the two signals have matching sampling frequencies and are in stereo.
+
+    \inputminted[firstline=36,lastline=43]{matlab}{../../effect/convolution_playback.m}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Finally, Convolution!}
+
+    At last, we can convolve the signals, making sure to incorporate wet/dry mixing.
+
+    \inputminted[firstline=45,lastline=53,fontsize=\footnotesize]{matlab}{../../effect/convolution_playback.m}
+
+\end{frame}

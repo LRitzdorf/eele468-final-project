@@ -1,0 +1,22 @@
+\section{Overview}
+
+
+\begin{frame}{System Overview}
+
+    Operational modes:
+
+    \pause
+    \begin{itemize}[<+->]
+        \item Capture an impulse response from the audio input
+
+        \item Apply a corresponding effect to the live audio stream:
+        \begin{itemize}[<.->]
+            \item Convolve the captured impulse with the most recent stream sample
+            \item Add the resulting convolved values to the output sample buffer
+        \end{itemize}
+    \end{itemize}
+
+    \pause[\thebeamerpauses]
+    Mode-switching is controlled via user input (e.g. ``push this button to record an impulse'')
+
+\end{frame}
