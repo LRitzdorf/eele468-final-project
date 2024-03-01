@@ -28,3 +28,17 @@
     \end{columns}
 
 \end{frame}
+
+
+\begin{frame}{Hardware Challenges}
+
+    Implementing convolution in hardware may be difficult, mostly due to timing constraints.
+
+    \begin{description}
+        \item[2048] clock cycles between codec samples
+        \item[48000] samples per second
+        \item[\textasciitilde{}23.4] samples to process every clock cycle
+        \item[\texttimes 2] because stereo
+    \end{description}
+
+\end{frame}
