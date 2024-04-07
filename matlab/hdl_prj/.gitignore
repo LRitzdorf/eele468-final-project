@@ -1,0 +1,7 @@
+# Extra HDL Coder files and reports
+html/
+hdlsrc/**/*.txt
+hdlsrc/**/*.slx
+hdlsrc/**/hcv
+hdlsrc/**/*.mat
+hdlsrc/**/*.m
