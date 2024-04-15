@@ -5,8 +5,7 @@ function computeParams(hdlParams)
 % Speed of FPGA clock that we will connect to in the FPGA fabric
 FPGA_clock_frequency = hdlParams.clockFrequency;
 
-% Ensure the model is up-to-date, and retrieve the fastest sampling rate
-set_param(bdroot, 'SimulationCommand', 'Update')
+% Retrieve the fastest sampling rate
 fastestPeriod = min(cellfun(@(a) a(1,1), ...
     get_param(gcb, 'CompiledSampleTime')));
 
