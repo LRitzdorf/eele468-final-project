@@ -7,7 +7,8 @@ FPGA_clock_frequency = hdlParams.clockFrequency;
 
 % Ensure the model is up-to-date, and retrieve the fastest sampling rate
 set_param(bdroot, 'SimulationCommand', 'Update')
-fastestPeriod = min(nonzeros(get_param(gcb, 'CompiledSampleTime')));
+fastestPeriod = min(cellfun(@(a) a(1,1), ...
+    get_param(gcb, 'CompiledSampleTime')));
 
 % Compute the HDL Coder oversampling factor
 % https://www.mathworks.com/help/hdlcoder/ug/generating-a-global-oversampling-clock.html
