@@ -1,2 +1,2 @@
 % Play the processed audio output
-soundsc(double(audioOut), modelParams.audio.sampleFrequency)
+soundsc(double(out.audioOut), modelParams.audio.sampleFrequency)
