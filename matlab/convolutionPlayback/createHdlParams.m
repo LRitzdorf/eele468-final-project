@@ -8,4 +8,4 @@ function hdlParams = createHdlParams(~)
 FPGA_clock_frequency = 98304000; % Hz
 hdlset_param(gcs, "TargetFrequency", FPGA_clock_frequency);
 
-hdlParams = struct();
+hdlParams.clockFrequency = FPGA_clock_frequency;

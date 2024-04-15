@@ -1,9 +1,9 @@
 % Set computed parameters for the associated Simulink model
 
-function computeParams()
+function computeParams(hdlParams)
 
 % Speed of FPGA clock that we will connect to in the FPGA fabric
-FPGA_clock_frequency = hdlget_param(gcs, "TargetFrequency");
+FPGA_clock_frequency = hdlParams.clockFrequency;
 
 % Ensure the model is up-to-date, and retrieve the fastest sampling rate
 set_param(bdroot, 'SimulationCommand', 'Update')
