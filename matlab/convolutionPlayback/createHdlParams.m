@@ -9,3 +9,6 @@ FPGA_clock_frequency = 98304000; % Hz
 hdlset_param(gcs, "TargetFrequency", FPGA_clock_frequency);
 
 hdlParams.clockFrequency = FPGA_clock_frequency;
+
+% Oversampling rate (assuming the fastest clock in the system is the specified fabric clock)
+hdlset_param(gcs, 'Oversampling', 1)
