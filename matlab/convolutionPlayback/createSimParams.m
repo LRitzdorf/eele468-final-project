@@ -12,9 +12,13 @@ simParams.audioIn = [impulse; stream];
 simParams.modeControl = fi([ones(size(impulse)); zeros(size(stream))], modelParams.modeControl.dataType);
 
 % Simulation Parameters
-simParams.verifySimulation = true;
+simParams.verifySimulation = false;
 simParams.playOutput       = true;
-simParams.stopTime         = 5; % seconds
+simParams.stopTime         = ( ...
+        length(simParams.audioIn) ...
+        + modelParams.audio.sampleFrequency ...
+        + modelParams.numCores ...
+    ) / modelParams.audio.sampleFrequency;
 
 % Model parameters for simulation
 wetDryMix = 1;
