@@ -277,7 +277,10 @@ architecture DE10Nano_AudioMini_Arch of DE10Nano_AudioMini_System is
             memory_mem_dqs_n                : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs_n
             memory_mem_odt                  : out   std_logic;                                        -- mem_odt
             memory_mem_dm                   : out   std_logic_vector(3 downto 0);                     -- mem_dm
-            memory_oct_rzqin                : in    std_logic                     := 'X'              -- oct_rzqin
+            memory_oct_rzqin                : in    std_logic                     := 'X';             -- oct_rzqin
+            convolution_control_record      : in    std_logic                     := 'X';             -- record
+            convolution_control_recording   : out   std_logic;                                        -- recording
+            convolution_control_enabled     : out   std_logic                                         -- enabled
         );
     end component;
 
@@ -317,6 +320,8 @@ architecture DE10Nano_AudioMini_Arch of DE10Nano_AudioMini_System is
     -- A better description of KEY input, which should really be labelled KEY_n
     signal push_button             : std_logic_vector(1 downto 0);
 
+    signal recording, record_button : std_logic;
+
 begin
 
     ---------------------------------------------------------------------------------------------
@@ -327,11 +332,6 @@ begin
     push_button          <= not KEY;
     hps_and_fabric_reset <= push_button(1);
     fabric_reset         <= push_button(0);
-
-    ----------------------------------------
-    -- Control Audio Mini LEDs using switches
-    ----------------------------------------
-    Audio_Mini_LEDs <= Audio_Mini_SWITCHES;
 
     ----------------------------------------
     -- AD1939
@@ -455,8 +455,17 @@ begin
             memory_mem_dqs_n   => HPS_DDR3_DQS_N,
             memory_mem_odt     => HPS_DDR3_ODT,
             memory_mem_dm      => HPS_DDR3_DM,
-            memory_oct_rzqin   => HPS_DDR3_RZQ
+            memory_oct_rzqin   => HPS_DDR3_RZQ,
+
+            -- Convolution control signals
+            convolution_control_record    => record_button,
+            convolution_control_recording => recording,
+            convolution_control_enabled   => Audio_Mini_LEDs(3)
         );
+
+    -- Display "actually recording" state on LED (recording button must also be pressed)
+    record_button <= Audio_Mini_SWITCHES(0);
+    Audio_Mini_LEDs(0) <= recording and record_button;
 
     ----------------------------------------
     -- Tri-state buffer the I2C signals
@@ -481,6 +490,7 @@ begin
     -- Note: Modify appropriately if you use these signals to avoid
     --       multiple driver errors.
     ----------------------------------------
+    Audio_Mini_LEDs <= (others => 'Z');
     LED             <= (others => '0');
     ARDUINO_IO      <= (others => 'Z');
     ARDUINO_RESET_N <= 'Z';
