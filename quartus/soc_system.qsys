@@ -25,6 +25,22 @@
          type = "int";
       }
    }
+   element convolutionProcessor_0
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
+   element convolutionProcessor_0.avalon_mm
+   {
+      datum baseAddress
+      {
+         value = "33024";
+         type = "String";
+      }
+   }
    element hps
    {
       datum _sortIndex
@@ -109,6 +125,11 @@
    type="clock"
    dir="end" />
  <interface
+   name="convolution_control"
+   internal="convolutionProcessor_0.realtime_control"
+   type="conduit"
+   dir="end" />
+ <interface
    name="fabric_only_reset"
    internal="clk_reset_inputs.fabric_reset_in_reset" />
  <interface
@@ -175,6 +196,11 @@
   <parameter name="AUTO_HPS_CLK_IN_RESET_DOMAIN" value="6" />
   <parameter name="AUTO_UNIQUE_ID">$${FILENAME}_clk_reset_inputs</parameter>
  </module>
+ <module
+   name="convolutionProcessor_0"
+   kind="convolutionProcessor"
+   version="1.0"
+   enabled="1" />
  <module name="hps" kind="altera_hps" version="21.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
   <parameter name="ABS_RAM_MEM_INIT_FILENAME" value="meminit" />
@@ -716,11 +742,35 @@
    kind="avalon"
    version="21.1"
    start="hps.h2f_lw_axi_master"
+   end="convolutionProcessor_0.avalon_mm">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x8100" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="21.1"
+   start="hps.h2f_lw_axi_master"
    end="system_id.control_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection
+   kind="avalon_streaming"
+   version="21.1"
+   start="convolutionProcessor_0.avalon_streaming_source"
+   end="ad1939_subsystem.to_headphone_out" />
+ <connection
+   kind="avalon_streaming"
+   version="21.1"
+   start="ad1939_subsystem.from_line_in"
+   end="convolutionProcessor_0.avalon_streaming_sink" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="ad1939_subsystem.audio_fabric_sys_clk"
+   end="convolutionProcessor_0.clock" />
  <connection
    kind="clock"
    version="21.1"
@@ -735,12 +785,22 @@
    kind="reset"
    version="21.1"
    start="clk_reset_inputs.fabric_reset_out"
+   end="convolutionProcessor_0.reset" />
+ <connection
+   kind="reset"
+   version="21.1"
+   start="clk_reset_inputs.fabric_reset_out"
    end="ad1939_subsystem.subsystem_reset" />
  <connection
    kind="reset"
    version="21.1"
    start="hps.h2f_reset"
    end="system_id.reset" />
+ <connection
+   kind="reset"
+   version="21.1"
+   start="hps.h2f_reset"
+   end="convolutionProcessor_0.reset" />
  <connection
    kind="reset"
    version="21.1"
