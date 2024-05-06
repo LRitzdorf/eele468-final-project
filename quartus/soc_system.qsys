@@ -9,11 +9,27 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element ad1939_subsystem
+   element ADC_Platform_0
    {
       datum _sortIndex
       {
          value = "3";
+         type = "int";
+      }
+   }
+   element ADC_Platform_0.s1
+   {
+      datum baseAddress
+      {
+         value = "128";
+         type = "String";
+      }
+   }
+   element ad1939_subsystem
+   {
+      datum _sortIndex
+      {
+         value = "4";
          type = "int";
       }
    }
@@ -29,7 +45,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "5";
          type = "int";
       }
    }
@@ -37,7 +53,7 @@
    {
       datum baseAddress
       {
-         value = "33024";
+         value = "16";
          type = "String";
       }
    }
@@ -125,6 +141,11 @@
    type="clock"
    dir="end" />
  <interface
+   name="adc_iface"
+   internal="ADC_Platform_0.adc_iface"
+   type="conduit"
+   dir="end" />
+ <interface
    name="convolution_control"
    internal="convolutionProcessor_0.realtime_control"
    type="conduit"
@@ -162,6 +183,7 @@
    type="clock"
    dir="start" />
  <interface name="memory" internal="hps.memory" type="conduit" dir="end" />
+ <module name="ADC_Platform_0" kind="ADC_Platform" version="1.0" enabled="1" />
  <module
    name="ad1939_subsystem"
    kind="ad1939_subsystem"
@@ -744,7 +766,7 @@
    start="hps.h2f_lw_axi_master"
    end="convolutionProcessor_0.avalon_mm">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x8100" />
+  <parameter name="baseAddress" value="0x0010" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -754,6 +776,15 @@
    end="system_id.control_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="21.1"
+   start="hps.h2f_lw_axi_master"
+   end="ADC_Platform_0.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -780,6 +811,11 @@
    kind="clock"
    version="21.1"
    start="clk_reset_inputs.hps_clk_out"
+   end="ADC_Platform_0.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_reset_inputs.hps_clk_out"
    end="hps.h2f_lw_axi_clock" />
  <connection
    kind="reset"
@@ -801,6 +837,11 @@
    version="21.1"
    start="hps.h2f_reset"
    end="convolutionProcessor_0.reset" />
+ <connection
+   kind="reset"
+   version="21.1"
+   start="hps.h2f_reset"
+   end="ADC_Platform_0.reset" />
  <connection
    kind="reset"
    version="21.1"
