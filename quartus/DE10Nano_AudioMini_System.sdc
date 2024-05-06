@@ -216,6 +216,9 @@ set_min_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interf
 # Set False Path
 #**************************************************************
 
+set_false_path -from [get_ports {Audio_Mini_SWITCHES[*]}]
+set_false_path -to [get_ports {Audio_Mini_LEDs[*]}]
+
 #set_false_path  -fall_from  [get_clocks {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk}]  -to  [get_clocks {HPS_DDR3_CK_P}]
 #set_false_path  -from  [get_clocks {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk}]  -to  [get_clocks {*_IN}]
 #set_false_path  -from  [get_clocks *]  -to  [get_clocks {u0|hps|hps_io|border|hps_sdram_inst|hps_sdram_p0_sampling_clock}]
