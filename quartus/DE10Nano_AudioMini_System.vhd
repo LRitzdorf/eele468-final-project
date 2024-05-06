@@ -280,7 +280,11 @@ architecture DE10Nano_AudioMini_Arch of DE10Nano_AudioMini_System is
             memory_oct_rzqin                : in    std_logic                     := 'X';             -- oct_rzqin
             convolution_control_record      : in    std_logic                     := 'X';             -- record
             convolution_control_recording   : out   std_logic;                                        -- recording
-            convolution_control_enabled     : out   std_logic                                         -- enabled
+            convolution_control_enabled     : out   std_logic;                                        -- enabled
+            adc_iface_convst                : out   std_logic;                                        -- convst
+            adc_iface_sck                   : out   std_logic;                                        -- sck
+            adc_iface_sdi                   : out   std_logic;                                        -- sdi
+            adc_iface_sdo                   : in    std_logic                     := 'X'              -- sdo
         );
     end component;
 
@@ -460,7 +464,13 @@ begin
             -- Convolution control signals
             convolution_control_record    => record_button,
             convolution_control_recording => recording,
-            convolution_control_enabled   => Audio_Mini_LEDs(3)
+            convolution_control_enabled   => Audio_Mini_LEDs(3),
+
+            -- ADC control interface
+            adc_iface_convst => ADC_CONVST,
+            adc_iface_sck    => ADC_SCK,
+            adc_iface_sdi    => ADC_SDI,
+            adc_iface_sdo    => ADC_SDO
         );
 
     -- Display "actually recording" state on LED (recording button must also be pressed)
@@ -495,8 +505,5 @@ begin
     ARDUINO_IO      <= (others => 'Z');
     ARDUINO_RESET_N <= 'Z';
     INMP621_MIC_CLK <= '0';
-    ADC_CONVST      <= '0';
-    ADC_SCK         <= '0';
-    ADC_SDI         <= '0';
 
 end architecture;

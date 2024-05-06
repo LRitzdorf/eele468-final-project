@@ -44,6 +44,9 @@ set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.0.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:48:23  JUNE 27, 2018"
 set_global_assignment -name LAST_QUARTUS_VERSION "21.1.1 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name VHDL_FILE "../adc-controller/vector-traverser.vhd"
+set_global_assignment -name VHDL_FILE "../adc-controller/config-translator.vhd"
+set_global_assignment -name VHDL_FILE "../adc-controller/adc-controller.vhd"
 set_global_assignment -name VHDL_FILE ../matlab/hdl_prj/hdlsrc/convolutionPlayback/convolutionCore1.vhd
 set_global_assignment -name VHDL_FILE ../matlab/hdl_prj/hdlsrc/convolutionPlayback/convolutionCore10.vhd
 set_global_assignment -name VHDL_FILE ../matlab/hdl_prj/hdlsrc/convolutionPlayback/convolutionCore11.vhd
@@ -157,6 +160,8 @@ set_global_assignment -name VHDL_FILE common/delay_signal.vhd
 set_global_assignment -name VHDL_FILE DE10Nano_AudioMini_System.vhd
 set_global_assignment -name SDC_FILE DE10Nano_AudioMini_System.sdc
 set_global_assignment -name QIP_FILE soc_system/synthesis/soc_system.qip
+set_global_assignment -name QIP_FILE common/parallel2serial_8.qip
+set_global_assignment -name QIP_FILE common/serial2parallel_8.qip
 set_global_assignment -name QIP_FILE common/parallel2serial_32.qip
 set_global_assignment -name QIP_FILE common/serial2parallel_32.qip
 
@@ -252,6 +257,15 @@ set_global_assignment -name ENABLE_SIGNALTAP OFF
 # ============================
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+
+# --------------------------
+# start ENTITY(ADC_Platform)
+
+	# Project-Wide Assignments
+	# ========================
+
+# end ENTITY(ADC_Platform)
+# ------------------------
 
 # ---------------------------------------
 # start ENTITY(DE10Nano_AudioMini_System)
