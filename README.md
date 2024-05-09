@@ -1,3 +1,16 @@
-# 468-final-project
+# EELE 468 Final Project
 
-The given organization of the final project repository is a suggestion.  You are free to change it to meet your needs.  However, you will need to update this readme with a discription of how your final project is organized, what the folders contain, and where your source code is located.
+
+## Directory Structure
+
+- Documentation
+  - 📁 **docs**: documentation and reports
+  - 📁 **figures**: imagery to accompany documentation
+- Development
+  - 📁 **effect**: MATLAB proof-of-concept work
+  - 📁 **matlab**: MATLAB/Simulink model folder
+- Hardware
+  - 📁 **adc-controller**: custom ADC controller component
+  - 📁 **quartus**: Quartus project folder
+- Software
+  - 📁 **linux**: kernel modules, device trees, and associated resources
