@@ -51,9 +51,14 @@
    }
    element convolutionProcessor_0.avalon_mm
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
-         value = "16";
+         value = "33024";
          type = "String";
       }
    }
@@ -766,7 +771,7 @@
    start="hps.h2f_lw_axi_master"
    end="convolutionProcessor_0.avalon_mm">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="baseAddress" value="0x8100" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection

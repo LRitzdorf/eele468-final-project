@@ -1,0 +1,45 @@
+// SPDX-License-Identifier: GPL-2.0+
+#include "socfpga_cyclone5_de0_nano_soc.dtsi"
+
+/ {
+    model = "Terasic DE10-Nano with Audio Mini";
+
+    // Altera SystemID core
+    sysid: sysid@ff200000 {
+        compatible = "altr,sysid-1.0";
+        reg = <0xff200000 0x08>;
+    };
+
+    // Custom ADC interface
+    adcPlatform: adcPlatform@ff200080 {
+        compatible = "lr,adcPlatform";
+        reg = <0xff200080 0x80>;
+    };
+
+    // Audio convolution processor
+    convolutionProcessor: convolutionProcessor@ff208100 {
+        compatible = "lr,convolutionProcessor";
+        reg = <0xff208100 0x10>;
+    };
+
+    tpa613a2 {
+        compatible = "dev,al-tpa613a2";
+    };
+};
+
+&spi0{
+    status = "okay";
+
+    ad1939@0 {
+        compatible = "dev,al-ad1939";
+        spi-max-frequency = <500000>;
+
+        // chip-select 0
+        reg = <0>;
+
+        // set spi mode to 3
+        spi-cpol;
+        spi-cpha;
+    };
+
+};
